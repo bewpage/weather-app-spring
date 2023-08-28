@@ -15,7 +15,8 @@ public class WeatherService {
 
   public String fetchWeather(String city) {
     String apiURL = "https://api.openweathermap.org/data/2.5/weather?q=";
-    String url = apiURL + city + "&appid=" + apiKey;
+    String units = "&units=metric";
+    String url = apiURL + city + "&appid=" + apiKey + units;
     return restTemplate.getForObject(url, String.class);
   }
 }
