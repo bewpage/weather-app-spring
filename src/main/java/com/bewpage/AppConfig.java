@@ -13,6 +13,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -93,5 +94,16 @@ public class AppConfig extends WebMvcConfigurerAdapter {
     registry
         .addResourceHandler("/webjars/**")
         .addResourceLocations("classpath:/META-INF/resources/webjars/");
+  }
+
+  @Bean
+  public WebMvcConfigurer corsConfigurer() {
+    return new WebMvcConfigurer() {
+      @Override
+      public void addCorsMappings(
+          org.springframework.web.servlet.config.annotation.CorsRegistry registry) {
+        registry.addMapping("/byCity/**").allowedOrigins("http://localhost:3000");
+      }
+    };
   }
 }
